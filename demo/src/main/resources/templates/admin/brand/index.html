@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layoutAdmin}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Danh sách thương hiệu</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="features-title text-center">
+                    <h2>BRANDS</h2>
+                </div>
+
+                <!-- Nút thêm thương hiệu -->
+                <a href="/admin/brand/create" class="btn btn-primary">Thêm Thương hiệu</a>
+
+                <!-- Bảng danh sách thương hiệu -->
+                <table class="table table-bordered table-striped mt-3">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên thương hiệu</th>
+                        <th style="width: 120px; text-align: center;">Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="brand : ${brands}">
+                        <td th:text="${brand.id}"></td>
+                        <td th:text="${brand.name}"></td>
+                        <td style="text-align: center;">
+                            <a th:href="@{/admin/brand/edit/{id}(id=${brand.id})}" class="btn btn-warning btn-sm">Sửa</a>
+                            <a th:href="@{/admin/brand/delete/{id}(id=${brand.id})}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

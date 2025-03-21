@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layoutAdmin}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Quản lý sản phẩm</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+  <div class="container mt-4">
+    <div class="features-title text-center">
+      <h2>PRODUCTS</h2>
+    </div>
+
+    <a href="/admin/product/create" class="btn btn-primary">Thêm Sản Phẩm</a>
+
+    <table class="table table-bordered table-striped mt-3">
+      <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Tên sản phẩm</th>
+        <th>Thương hiệu</th>
+        <th>Danh mục</th>
+        <th>Giới tính</th>
+        <th>Mô tả</th>
+        <th>Hình ảnh</th>
+        <th style="width: 140px; text-align: right;">Giá</th>
+        <th style="width: 120px; text-align: center;">Hành động</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="product : ${products}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.brand.name}"></td>
+        <td th:text="${product.category.name}"></td>
+        <td th:text="${product.gender}"></td>
+        <td th:text="${product.description}"></td>
+        <td>
+          <img th:src="@{${product.image}}" width="100" height="100">
+        </td>
+        <td style="text-align: right;"
+            th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+        </td>
+        <td style="text-align: center;">
+          <a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="btn btn-warning btn-sm">Sửa</a>
+          <a th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm"
+             onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</body>
+</html>

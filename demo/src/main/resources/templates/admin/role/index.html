@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layoutAdmin}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Quản lý quyền</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+  <div class="container mt-4">
+    <div class="features-title text-center">
+      <h2>QUẢN LÝ QUYỀN</h2>
+    </div>
+
+    <a href="/admin/role/create" class="btn btn-primary">Thêm Quyền</a>
+
+    <!-- Bảng danh sách quyền -->
+    <table class="table table-bordered table-striped mt-3">
+      <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Tên quyền</th>
+        <th>Mô tả</th>
+        <th style="width: 120px; text-align: center;">Hành động</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="role : ${roles}">
+        <td th:text="${role.id}"></td>
+        <td th:text="${role.name}"></td>
+        <td th:text="${role.description}"></td>
+        <td style="text-align: center;">
+          <a th:href="@{/admin/role/edit/{id}(id=${role.id})}" class="btn btn-warning btn-sm">Sửa</a>
+          <form th:action="@{/admin/role/delete/{id}(id=${role.id})}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa quyền này?')">Xóa</button>
+          </form>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</body>
+</html>

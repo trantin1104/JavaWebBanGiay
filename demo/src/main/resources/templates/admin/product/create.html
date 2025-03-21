@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layoutAdmin}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Thêm sản phẩm</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <h2 class="text-center">Thêm Sản Phẩm</h2>
+
+        <form th:action="@{/admin/product/create}" th:object="${product}" method="post" enctype="multipart/form-data">
+
+            <!-- Tên sản phẩm -->
+            <div class="mb-3">
+                <label class="form-label">Tên sản phẩm</label>
+                <input type="text" th:field="*{name}" class="form-control" required>
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+
+            <!-- Chọn thương hiệu -->
+            <div class="mb-3">
+                <label class="form-label">Thương hiệu</label>
+                <select th:field="*{brand}" class="form-control" required>
+                    <option value="">-- Chọn thương hiệu --</option>
+                    <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+                </select>
+            </div>
+
+            <!-- Chọn danh mục -->
+            <div class="mb-3">
+                <label class="form-label">Danh mục</label>
+                <select th:field="*{category}" class="form-control" required>
+                    <option value="">-- Chọn danh mục --</option>
+                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                </select>
+            </div>
+
+            <!-- Chọn giới tính -->
+            <div class="mb-3">
+                <label class="form-label">Giới tính</label>
+                <select th:field="*{gender}" class="form-control" required>
+                    <option value="">-- Chọn giới tính --</option>
+                    <option value="MALE">Nam</option>
+                    <option value="FEMALE">Nữ</option>
+                    <option value="BABY">Baby</option>
+                </select>
+            </div>
+
+            <!-- Mô tả sản phẩm -->
+            <div class="mb-3">
+                <label class="form-label">Mô tả</label>
+                <textarea th:field="*{description}" class="form-control" rows="3"></textarea>
+            </div>
+
+            <!-- Hình ảnh sản phẩm -->
+            <div class="mb-3">
+                <label class="form-label">Hình ảnh</label>
+                <input type="file" name="imageFile" class="form-control" required>
+            </div>
+
+            <!-- Giá sản phẩm -->
+            <div class="mb-3">
+                <label class="form-label">Giá</label>
+                <input type="number" th:field="*{price}" class="form-control" min="0" required>
+                <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">Lưu</button>
+            <a href="/admin/product" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layoutAdmin}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>CHỈNH SỬA QUYỀN</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+  <div class="container mt-4">
+    <div class="features-title text-center">
+      <h2>CHỈNH SỬA QUYỀN</h2>
+    </div>
+
+    <!-- Form sửa quyền -->
+    <form th:action="@{/admin/role/edit}" method="post">
+      <input type="hidden" name="roleId" th:value="${role.id}">
+
+      <div class="mb-3">
+        <label for="roleName" class="form-label">Tên quyền</label>
+        <input type="text" id="roleName" name="newRoleName" th:value="${role.name}" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Mô tả</label>
+        <textarea id="description" name="description" class="form-control" required th:text="${role.description}"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Cập nhật</button>
+    </form>
+
+
+  </div>
+</section>
+</body>
+</html>

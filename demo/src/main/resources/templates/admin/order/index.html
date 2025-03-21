@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layoutAdmin}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+    <h1 class="mb-4">📦 Danh sách đơn hàng</h1>
+
+    <table class="table table-bordered text-center align-middle">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Mã đơn hàng</th>
+            <th>Khách hàng</th>
+            <th>Ngày đặt hàng</th>
+            <th>Trạng thái đơn hàng:</th>
+            <th>Chi tiết</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order, index : ${orders}">
+            <td th:text="${index.index + 1}"></td>
+            <td th:text="${order.orderCode}"></td>
+            <td th:text="${order.customerName}"></td>
+            <td>
+                <div th:text="${#temporals.format(order.orderDate, 'HH:mm:ss')}"></div>
+                <div th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd')}"></div>
+            </td>
+
+            <td>
+                <form th:action="@{/admin/order/updateStatus}" method="post">
+                    <input type="hidden" name="orderId" th:value="${order.id}">
+                    <select name="status" class="form-select"
+                            th:classappend="${order.status == T(com.tuan1.demo.model.OrderStatus).CONFIRMED} ? 'bg-success text-white'
+                                 : (${order.status == T(com.tuan1.demo.model.OrderStatus).CANCELLED} ? 'bg-danger text-white'
+                                 : 'bg-warning text-dark')"
+                            onchange="this.form.submit()">
+                        <option value="PENDING" th:selected="${order.status == T(com.tuan1.demo.model.OrderStatus).PENDING}">Chờ xác nhận</option>
+                        <option value="CONFIRMED" th:selected="${order.status == T(com.tuan1.demo.model.OrderStatus).CONFIRMED}">Đã xác nhận</option>
+                        <option value="CANCELLED" th:selected="${order.status == T(com.tuan1.demo.model.OrderStatus).CANCELLED}">Đã hủy</option>
+                    </select>
+                </form>
+            </td>
+
+
+
+
+
+            <td>
+                <a th:href="@{/admin/order/detail/{id}(id=${order.id})}" class="btn btn-info btn-sm">🔍 Xem</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>

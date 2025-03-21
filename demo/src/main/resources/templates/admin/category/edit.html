@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layoutAdmin}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Chỉnh sửa danh mục</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="text-center">Chỉnh sửa Danh Mục</h2>
+
+        <form action="/admin/category/edit" method="post">
+          <!-- Trường ẩn để gửi ID danh mục -->
+          <input type="hidden" name="id" th:value="${category.id}">
+
+          <div class="mb-3">
+            <label class="form-label">Tên danh mục</label>
+            <input type="text" name="name" class="form-control" th:value="${category.name}" required>
+          </div>
+
+          <button type="submit" class="btn btn-success">Cập nhật</button>
+          <a href="/admin/category" class="btn btn-secondary">Hủy</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

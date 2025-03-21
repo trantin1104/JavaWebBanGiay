@@ -1,0 +1,160 @@
+.custom-header {
+    background-color: #e969ba; /* Màu đỏ cam */
+    text-align: center; /* Căn giữa */
+    padding: 20px; /* Tạo khoảng cách */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+
+    height: 100px; /* Chiều cao - bạn có thể chỉnh to/nhỏ theo ý muốn */
+    margin: 0 auto; /* Căn giữa theo chiều ngang */
+    display: flex; /* Căn giữa nội dung theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
+ /* Làm đậm chữ */
+.custom-navbar-brand {
+    font-size: 30px !important; /* Thay đổi kích thước chữ */
+    font-weight: bold; /* Làm đậm chữ */
+    color: rgb(237, 160, 226) !important; /* Đảm bảo chữ có màu trắng */
+    text-transform: uppercase; /* Viết hoa toàn bộ (nếu cần) */
+}
+
+ /* Thanh của Home  */
+.custom-navbar {
+    background-color: white; /* Màu nền trắng */
+    border-bottom: 4px solid #ea9ad8; /* Viền dưới màu hồng */
+}
+
+
+
+.header-title {
+    font-size: 50px; /* Chỉnh cỡ chữ */
+    font-weight: bold; /* Làm đậm chữ */
+    text-transform: uppercase; /* Viết hoa */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* Hiệu ứng bóng */
+    letter-spacing: 2px; /* Giãn chữ */
+    padding: 20px 0; /* Thêm khoảng cách trên dưới */
+    color: #fefefe; /* Vàng gold */
+}
+
+
+header {
+    margin-bottom: 0; /* Loại bỏ khoảng cách dưới */
+    padding-bottom: 10px; /* Tùy chỉnh nếu cần */
+}
+
+h1 {
+    margin-bottom: 0; /* Loại bỏ khoảng cách dưới */
+}
+
+/*chu ke ben home*/
+.navbar-nav .nav-link {
+    font-weight: bold; /* Làm chữ đậm */
+    font-size: 20px; /* Tăng kích thước chữ */
+    color: #f15e5e !important;
+}
+
+
+/* Sidebar */
+.left-sidebar {
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Danh mục sản phẩm */
+.list-group-item a {
+    font-size: 20px; /* Tăng kích thước chữ */
+    font-weight: 600; /* Làm đậm nhẹ */
+    color: #333; /* Màu chữ đậm hơn */
+    text-decoration: none; /* Bỏ gạch chân */
+}
+
+.list-group-item:hover {
+    background-color: #f3aae2;
+    color: white;
+}
+
+/* Sản phẩm */
+.card {
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+}
+
+.features-title {
+    font-size: 22px; /* Cỡ chữ lớn */
+    font-weight: bold; /* Chữ đậm */
+    color: #f15e5e; /* Màu cam giống ảnh */
+    text-transform: uppercase; /* Chữ in hoa */
+    text-align: center; /* Căn giữa */
+    letter-spacing: 1.5px; /* Giãn chữ */
+    margin: 20px 0; /* Khoảng cách trên dưới */
+    display: flex; /* Sử dụng flexbox */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa nội dung */
+    gap: 15px; /* Khoảng cách giữa chữ và đường kẻ */
+}
+
+.features-title::before,
+.features-title::after {
+    content: "";
+    flex-grow: 1; /* Để đường kẻ mở rộng ra hai bên */
+    height: 2px; /* Độ dày đường kẻ */
+    background-color: #ddd; /* Màu xám nhạt */
+}
+
+.btn-primary {
+    background-color: #f890d9 !important; /* Màu hồng */
+    border-color: #f890d9 !important; /* Màu viền */
+}
+
+
+.btn-add-product {
+    background-color: #f570d6; /* Màu xanh lá */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-add-product:hover {
+    background-color: #ea01b0; /* Màu xanh lá đậm khi hover */
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-add-product:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    transition: 0.2s ease-in-out;
+}
+
+.truncate-flex {
+    display: flex;
+    align-items: center;
+    max-width: 200px; /* Điều chỉnh độ rộng theo ý muốn */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+

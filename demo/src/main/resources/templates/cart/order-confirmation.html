@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation</title>
+</head>
+
+<body >
+
+<section layout:fragment="content">
+  <div class="alert alert-success p-4 shadow-sm">
+    <h1 class="mb-3">🎉 Đơn hàng của bạn đã được xác nhận! 🎉</h1>
+    <p class="lead" th:text="${message}">Your order has been successfully placed. Thank you for shopping with us!</p>
+
+    <hr>
+
+    <p><strong>🆔 Mã đơn hàng:</strong> <span th:text="${order.orderCode}"></span></p>
+    <p><strong>📅 Ngày đặt hàng:</strong> <span th:text="${order.orderDate}"></span></p>
+
+    <p><strong>👤 Khách hàng:</strong> <span th:text="${order.customerName}"></span></p>
+    <p><strong>📍 Địa chỉ giao hàng:</strong> <span th:text="${order.shippingAddress}"></span></p>
+    <p><strong>📞 Số điện thoại:</strong> <span th:text="${order.phoneNumber}"></span></p>
+    <p><strong>✉️ Email:</strong> <span th:text="${order.email}"></span></p>
+  </div>
+
+  <div class="mt-4">
+    <a th:href="@{/}" class="btn btn-primary me-2">🏠 Về trang chủ</a>
+  </div>
+</section>
+
+</body>
+</html>

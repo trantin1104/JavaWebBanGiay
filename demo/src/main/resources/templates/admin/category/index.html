@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layoutAdmin}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Quản lý danh mục</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+  <div class="container mt-4">
+    <div class="features-title text-center">
+      <h2>CATEGORIES</h2>
+    </div>
+
+    <a href="/admin/category/create" class="btn btn-primary">Thêm Danh Mục</a>
+
+    <!-- Bảng danh sách danh mục -->
+    <table class="table table-bordered table-striped mt-3">
+      <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Tên danh mục</th>
+        <th style="width: 120px; text-align: center;">Hành động</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="category : ${categories}">
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.name}"></td>
+        <td style="text-align: center;">
+          <a th:href="@{/admin/category/edit/{id}(id=${category.id})}" class="btn btn-warning btn-sm">Sửa</a>
+          <a th:href="@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-danger btn-sm"
+             onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layoutAdmin}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Danh sách Người dùng</title>
+</head>
+
+<body>
+<section layout:fragment="content">
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="features-title text-center">
+          <h2>USERS</h2>
+        </div>
+
+
+        <!-- Bảng danh sách người dùng -->
+        <table class="table table-bordered table-striped mt-3">
+          <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Tên người dùng</th>
+            <th>Vai trò</th>
+            <th style="width: 120px; text-align: center;">Hành động</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td>
+              <span th:each="role : ${user.roles}" th:text="${role.name} + ' '"></span>
+            </td>
+            <td style="text-align: center;">
+              <a th:href="@{/admin/user/edit/{id}(id=${user.id})}" class="btn btn-warning btn-sm">Sửa</a>
+              <a th:href="@{/admin/user/delete/{id}(id=${user.id})}" class="btn btn-danger btn-sm"
+                 onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

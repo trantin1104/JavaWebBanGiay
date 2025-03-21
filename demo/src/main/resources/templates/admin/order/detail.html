@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layoutAdmin}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết đơn hàng</title>
+</head>
+
+<body>
+<!-- Bọc nội dung trong fragment -->
+<section layout:fragment="content">
+  <div class="container mt-4">
+    <h2 class="mb-4">Chi tiết đơn hàng</h2>
+
+    <!-- Thông tin đơn hàng -->
+    <table class="table table-bordered">
+      <tr>
+        <th>Mã đơn hàng:</th>
+        <td th:text="${order.orderCode}"></td>
+      </tr>
+      <tr>
+        <th>Tên khách hàng:</th>
+        <td th:text="${order.customerName}"></td>
+      </tr>
+      <tr>
+        <th>Thời gian đặt hàng:</th>
+        <td th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd')}"></td>
+      </tr>
+      <tr>
+        <th>Email khách hàng:</th>
+        <td th:text="${order.email}"></td>
+      </tr>
+      <tr>
+        <th>Số điện thoại:</th>
+        <td th:text="${order.phoneNumber}"></td>
+      </tr>
+      <tr>
+        <th>Địa chỉ giao hàng:</th>
+        <td th:text="${order.shippingAddress}"></td>
+      </tr>
+      <tr>
+        <th>Trạng thái đơn hàng:</th>
+        <td>
+          <span th:if="${order.status == T(com.tuan1.demo.model.OrderStatus).PENDING}" class="badge bg-warning">Chờ xác nhận</span>
+          <span th:if="${order.status == T(com.tuan1.demo.model.OrderStatus).CONFIRMED}" class="badge bg-success">Đã xác nhận</span>
+          <span th:if="${order.status == T(com.tuan1.demo.model.OrderStatus).CANCELLED}" class="badge bg-danger">Đã hủy</span>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Danh sách sản phẩm trong đơn hàng -->
+    <h3 class="mt-4">Sản phẩm trong đơn hàng</h3>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Tên sản phẩm</th>
+        <th>Số lượng</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="detail, stat : ${order.orderDetails}">
+        <td th:text="${stat.index + 1}"></td>
+        <td th:text="${detail.product.name}"></td>
+        <td th:text="${detail.quantity}"></td>
+
+      </tr>
+      </tbody>
+    </table>
+
+    <!-- Nút quay lại -->
+    <a href="/admin/order" class="btn btn-primary">Quay lại danh sách</a>
+  </div>
+</section>
+
+</body>
+</html>

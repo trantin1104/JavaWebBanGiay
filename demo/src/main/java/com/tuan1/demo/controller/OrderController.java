@@ -65,4 +65,11 @@ public class OrderController {
         return "cart/order-confirmation";
     }
 
+    @GetMapping("/history")
+    public String orderHistory(Model model) {
+        List<Order> orders = orderService.getUserOrders();
+        model.addAttribute("orders", orders);
+        return "cart/order-history";
+    }
+
 }

@@ -33,6 +33,8 @@ public class Order {
     @Column(name = "email")
     private String email;
 
+
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -47,6 +49,10 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<OrderDetail> orderDetails = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
+    private User user;
 
     @PrePersist
     public void generateOrderData() {

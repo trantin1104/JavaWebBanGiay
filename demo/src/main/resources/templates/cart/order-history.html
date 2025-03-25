@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lịch sử đơn hàng</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+  <div class="features-title">LỊCH SỬ ĐƠN HÀNG</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead class="table-dark">
+          <tr>
+            <th>Mã đơn hàng</th>
+            <th>Tên khách hàng</th>
+            <th>Ngày đặt</th>
+            <th>Địa chỉ giao hàng</th>
+            <th>Số điện thoại</th>
+            <th>Trạng thái</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="order : ${orders}">
+            <td th:text="${order.orderCode}"></td>
+            <td th:text="${order.customerName}"></td>
+            <td th:text="${order.orderDate}"></td>
+            <td th:text="${order.shippingAddress}"></td>
+            <td th:text="${order.phoneNumber}"></td>
+            <td th:text="${order.status}"
+                th:classappend="${order.status == T(com.tuan1.demo.model.OrderStatus).CONFIRMED} ? 'bg-success text-white'
+                 : (${order.status == T(com.tuan1.demo.model.OrderStatus).CANCELLED} ? 'bg-danger text-white'
+                 : 'bg-warning text-dark')">
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+
+        <a href="/" class="btn btn-primary">
+          <i class="fa-solid fa-house"></i> Quay về trang chủ
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

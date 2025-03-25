@@ -52,6 +52,10 @@ public class User implements UserDetails {
     @Column(name = "provider", length = 50)
     private String provider;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Order> orders = new HashSet<>();
+
+
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -6,8 +6,13 @@ import com.tuan1.demo.model.OrderDetail;
 import com.tuan1.demo.model.OrderStatus;
 import com.tuan1.demo.repository.OrderDetailRepository;
 import com.tuan1.demo.repository.OrderRepository;
+import com.tuan1.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import com.tuan1.demo.model.User;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,6 +27,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final CartService cartService;
+    private final UserRepository userRepository;
 
     public Order createOrder(String customerName, String shippingAddress, String phoneNumber, String email, List<CartItem> cartItems) {
         if (cartItems == null || cartItems.isEmpty()) {
@@ -30,6 +36,11 @@ public class OrderService {
 
         validateOrderData(customerName, shippingAddress, phoneNumber, email);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         Order order = new Order();
         order.setCustomerName(customerName);
         order.setShippingAddress(shippingAddress);
@@ -37,6 +48,8 @@ public class OrderService {
         order.setEmail(email);
 
         order.setStatus(OrderStatus.PENDING);
+
+        order.setUser(user); // Gán đơn hàng với user
 
         order = orderRepository.save(order); // Lưu đơn hàng vào database
 
@@ -55,6 +68,16 @@ public class OrderService {
 
     public List<Order> getAllOrders() {
         return orderRepository.findAllByOrderByOrderDateDesc(); // Sắp xếp mới nhất -> cũ nhất
+    }
+
+    public List<Order> getUserOrders() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return orderRepository.findByUser(user); // Thêm phương thức này trong OrderRepository
     }
 
     private void validateOrderData(String customerName, String shippingAddress, String phoneNumber, String email) {

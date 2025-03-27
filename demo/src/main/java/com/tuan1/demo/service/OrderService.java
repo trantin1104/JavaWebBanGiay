@@ -1,15 +1,11 @@
 package com.tuan1.demo.service;
 
-import com.tuan1.demo.model.Order;
-import com.tuan1.demo.model.CartItem;
-import com.tuan1.demo.model.OrderDetail;
-import com.tuan1.demo.model.OrderStatus;
+import com.tuan1.demo.model.*;
 import com.tuan1.demo.repository.OrderDetailRepository;
 import com.tuan1.demo.repository.OrderRepository;
 import com.tuan1.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import com.tuan1.demo.model.User;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +24,8 @@ public class OrderService {
     private final OrderDetailRepository orderDetailRepository;
     private final CartService cartService;
     private final UserRepository userRepository;
+    private final ProductService productService;
+
 
     public Order createOrder(String customerName, String shippingAddress, String phoneNumber, String email, List<CartItem> cartItems) {
         if (cartItems == null || cartItems.isEmpty()) {
@@ -41,23 +39,28 @@ public class OrderService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+
+
+
         Order order = new Order();
         order.setCustomerName(customerName);
         order.setShippingAddress(shippingAddress);
         order.setPhoneNumber(phoneNumber);
         order.setEmail(email);
-
         order.setStatus(OrderStatus.PENDING);
+        order.setUser(user);
 
-        order.setUser(user); // Gán đơn hàng với user
-
-        order = orderRepository.save(order); // Lưu đơn hàng vào database
+        order = orderRepository.save(order);
 
         for (CartItem item : cartItems) {
             OrderDetail detail = new OrderDetail();
             detail.setOrder(order);
             detail.setProduct(item.getProduct());
             detail.setQuantity(item.getQuantity());
+
+            //  Trừ số lượng sản phẩm trong kho
+            productService.reduceProductQuantity(item.getProduct().getId(), item.getQuantity());
+
             orderDetailRepository.save(detail);
         }
 
@@ -65,6 +68,7 @@ public class OrderService {
 
         return order;
     }
+
 
     public List<Order> getAllOrders() {
         return orderRepository.findAllByOrderByOrderDateDesc(); // Sắp xếp mới nhất -> cũ nhất

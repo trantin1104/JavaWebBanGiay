@@ -26,6 +26,7 @@
         <th>Mô tả</th>
         <th>Hình ảnh</th>
         <th style="width: 140px; text-align: right;">Giá</th>
+        <th style="width: 100px; text-align: center;">Số lượng</th>
         <th style="width: 120px; text-align: center;">Hành động</th>
       </tr>
       </thead>
@@ -44,6 +45,7 @@
         <td style="text-align: right;"
             th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
         </td>
+        <td style="text-align: center; font-weight: bold;" th:text="${product.quantity}"></td>
         <td style="text-align: center;">
           <a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="btn btn-warning btn-sm">Sửa</a>
           <a th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="btn btn-danger btn-sm"

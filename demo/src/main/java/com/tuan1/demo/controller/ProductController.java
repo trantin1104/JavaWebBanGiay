@@ -52,6 +52,7 @@ public class ProductController {
                 product.setImage(imagePath);
             }
 
+            product.setQuantity(product.getQuantity());
             productRepository.save(product);
             redirectAttributes.addFlashAttribute("success", "Sản phẩm đã được lưu!");
         } catch (IOException e) {
@@ -96,6 +97,7 @@ public class ProductController {
             existingProduct.setCategory(product.getCategory());
             existingProduct.setBrand(product.getBrand());
             existingProduct.setGender(product.getGender());
+            existingProduct.setQuantity(product.getQuantity());
 
             productRepository.save(existingProduct);
             redirectAttributes.addFlashAttribute("success", "Sản phẩm đã được cập nhật!");

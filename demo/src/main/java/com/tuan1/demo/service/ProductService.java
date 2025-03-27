@@ -47,6 +47,12 @@ public class ProductService {
             String imagePath = saveImage(imageFile);
             product.setImage(imagePath);
         }
+
+        // Đảm bảo số lượng không âm
+        if (product.getQuantity() < 0) {
+            throw new IllegalArgumentException("Số lượng sản phẩm không hợp lệ!");
+        }
+
         return productRepository.save(product);
     }
 
@@ -69,6 +75,7 @@ public class ProductService {
         existingProduct.setCategory(product.getCategory());
         existingProduct.setBrand(product.getBrand());
         existingProduct.setGender(product.getGender());
+        existingProduct.setQuantity(product.getQuantity());
 
         if (imageFile != null && !imageFile.isEmpty()) {
             String imagePath = saveImage(imageFile);
@@ -107,4 +114,19 @@ public class ProductService {
     public List<Brand> getAllBrands() {
         return brandRepository.findAll();
     }
+
+    public void reduceProductQuantity(Long productId, int quantity) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy sản phẩm với ID: " + productId));
+
+        if (product.getQuantity() < quantity) {
+            throw new IllegalArgumentException("Sản phẩm " + product.getName() + " không đủ số lượng!");
+        }
+
+        product.setQuantity(product.getQuantity() - quantity);
+        productRepository.save(product);
+    }
+
+
+
 }

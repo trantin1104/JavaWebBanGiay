@@ -6,6 +6,7 @@ import com.tuan1.demo.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +25,27 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final ProductService productService;
 
-    // Danh sách sản phẩm
     @GetMapping
-    public String listProducts(Model model) {
-        model.addAttribute("products", productRepository.findAll());
+    public String listProducts(Model model,
+                               @RequestParam(defaultValue = "1") int page,
+                               @RequestParam(defaultValue = "5") int size,
+                               @RequestParam(required = false) String keyword) {
+        Page<Product> productPage;
+
+        if (keyword != null && !keyword.isEmpty()) {
+            productPage = productService.searchProducts(keyword, page, size);
+        } else {
+            productPage = productService.getProductsPaginated(page, size);
+        }
+
+        model.addAttribute("products", productPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("keyword", keyword);
+
         return "admin/product/index";
     }
+
 
     // Hiển thị form thêm sản phẩm
     @GetMapping("/create")

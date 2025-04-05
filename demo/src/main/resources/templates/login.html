@@ -1,57 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>Login</title>
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/styles.css">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/login.css">
+  <title>LOGIN</title>
 </head>
-<body>
 
-  <h1 class="mb-4">Login</h1>
-  <form th:action="@{/login}" method="post">
+<body>
+<div class="form">
+  <form th:action="@{/login}" method="post" class="form__content">
+
     <!-- Hiển thị thông báo lỗi nếu đăng nhập sai -->
     <div th:if="${param.error}" class="alert alert-danger">
       Invalid username and password.
     </div>
+
     <!-- Hiển thị thông báo khi logout -->
     <div th:if="${param.logout}" class="alert alert-success">
       You have been logged out.
     </div>
 
-    <div class="form-group mb-4">
-      <label for="username">Username</label>
-      <input type="text" class="form-control" required id="username"
+    <h1>Login</h1>
+
+    <!-- Username -->
+    <div class="form__box">
+      <input type="text" class="form__input" required id="username"
              name="username" placeholder="Enter your username">
+      <label for="username" class="form__label">Username</label>
+      <div class="form__shadow"></div>
     </div>
 
-    <div class="form-group mb-4">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" required id="password"
+    <!-- Password -->
+    <div class="form__box">
+      <input type="password" class="form__input" required id="password"
              name="password" placeholder="Enter your password">
+      <label for="password" class="form__label">Password</label>
+      <div class="form__shadow"></div>
     </div>
 
-    <div class="form-check d-flex justify-content-start mb-4">
-      <input type="checkbox" class="form-check-input" name="remember-me"
-             id="remember-me">
-      <label class="form-check-label" for="remember-me"> Remember me</label>
+    <!-- Remember me -->
+    <div class="form__box">
+      <input type="checkbox" name="remember-me" id="remember-me">
+      <label for="remember-me">Remember me</label>
     </div>
 
-    <div class="d-grid gap-2 form-action">
-      <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
-      <p class="mt-3 mb-0">
-        Don't have an account?
-        <a class="text-info text-center" th:href="@{/register}">Sign up</a>
-      </p>
+    <!-- Nút đăng nhập -->
+    <div class="form__button">
+      <input type="submit" class="form__submit" value="Login">
     </div>
+
+    <!-- Link đến trang đăng ký -->
+    <p class="form__footer">
+      Don't have an account?
+      <a th:href="@{/register}" class="form__link">Sign up</a>
+    </p>
+
   </form>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</div>
 </body>
+
 </html>

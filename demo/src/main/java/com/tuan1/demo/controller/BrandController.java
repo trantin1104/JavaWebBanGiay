@@ -21,11 +21,11 @@ public class BrandController {
         return "admin/brand/index";
     }
 
-    // Hiển thị trang thêm mới thương hiệu
+
     @GetMapping("/create")
     public String createBrandPage(Model model) {
         model.addAttribute("newBrand", new Brand());
-        return "admin/brand/create"; // Tên file HTML trong thư mục templates/admin/brand/
+        return "admin/brand/create";
     }
 
 

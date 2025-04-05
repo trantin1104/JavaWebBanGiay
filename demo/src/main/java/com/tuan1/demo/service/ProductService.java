@@ -127,6 +127,15 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public Page<Product> getProductsPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("id").descending());
+        return productRepository.findAll(pageable);
+    }
+
+    public Page<Product> searchProducts(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("id").descending());
+        return productRepository.findByNameContainingIgnoreCase(keyword, pageable);
+    }
 
 
 }

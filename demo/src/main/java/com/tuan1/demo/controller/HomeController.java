@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -32,6 +33,13 @@ public class HomeController {
                        @RequestParam(value = "keyword", required = false) String keyword) {
 
         addBrandListToModel(model);
+
+        // Thêm danh sách hình ảnh vào model cho slider
+        List<String> banners = Arrays.asList( "b5.jpg","feature.webp", "b2.jpg");
+        List<String> docbanners = Arrays.asList("d5.jpg", "d1.jpg", "d2.jpg","d6.jpg", "d3.jpg", "d4.jpg", "d7.jpg");
+
+        model.addAttribute("banners", banners);
+        model.addAttribute("docbanners", docbanners);
 
         int page = (pageNumber != null && pageNumber > 0) ? pageNumber - 1 : 0;
         int size = 9;

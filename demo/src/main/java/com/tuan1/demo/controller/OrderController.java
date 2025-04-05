@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -20,6 +21,8 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final CartService cartService;
+
+    
 
     @GetMapping("/checkout")
     public String checkout() {
@@ -68,8 +71,14 @@ public class OrderController {
     @GetMapping("/history")
     public String orderHistory(Model model) {
         List<Order> orders = orderService.getUserOrders();
+
+
+        // Sắp xếp danh sách theo orderDate từ mới nhất đến cũ nhất
+        orders.sort(Comparator.comparing(Order::getOrderDate).reversed());
+
         model.addAttribute("orders", orders);
         return "cart/order-history";
     }
+
 
 }

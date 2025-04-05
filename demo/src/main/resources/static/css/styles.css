@@ -155,6 +155,17 @@ footer {
     text-overflow: ellipsis;
 }
 
+.carousel-inner img {
+    width: 100%;
+    height: 20%;
+    object-fit: cover;
+    max-width: 100%;  /* Giới hạn không cho hình ảnh vượt quá chiều rộng của phần tử chứa */
+    max-height: 60%; /* Giới hạn không cho hình ảnh vượt quá chiều cao của phần tử chứa */
+}
 
 
+header img {
+    display: block !important;
+    visibility: visible !important;
+}
 

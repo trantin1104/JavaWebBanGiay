@@ -50,7 +50,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/register", "/error",
-                                "/products", "/uploads/**" , "/cart", "/cart/**").permitAll() // Cho phép truy cập trang chủ
+                                "/products","/brand/**", "/uploads/**" , "/cart", "/cart/**").permitAll() // Cho phép truy cập trang chủ
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/**").permitAll()
                         .anyRequest().authenticated() // Các trang khác yêu cầu đăng nhập

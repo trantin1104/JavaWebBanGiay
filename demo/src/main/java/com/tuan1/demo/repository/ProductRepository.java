@@ -16,5 +16,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByBrand_Name(String brandName);
 
 
+
 }
 
